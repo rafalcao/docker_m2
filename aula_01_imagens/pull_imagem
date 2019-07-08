@@ -1,0 +1,8 @@
+docker pull hello-world:latest
+
+docker images
+
+
+docker pull debian:5.6
+
+docker images

@@ -1,0 +1,106 @@
+docker run -it -d -v /var/www/html/:/var/www/html/ --name="god" -p 80:80 debian:jessie
+
+cd /var/www/html/magento/
+
+apt-get update
+
+apt-get install -y vim wget curl
+
+apt-get install -y nginx
+
+service nginx start
+
+acessar 127.0.0.1
+
+(https://tecadmin.net/install-php7-on-debian/)
+
+apt install ca-certificates apt-transport-https 
+wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+echo "deb https://packages.sury.org/php/ jessie main" | tee /etc/apt/sources.list.d/php.list
+
+apt-get update
+apt-get install php7.2-fpm
+
+apt install php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-json php7.2-mbstring php7.2-mysql php7.2-xml php7.2-bcmath php7.2-soap php7.2-xsl php7.2-zip php7.2-intl php7.2-pdo  php7.2-curl 
+
+php -v
+
+apt-get install net-tools
+
+netstat -anp | grep 9000
+
+vim /etc/php/7.2/fpm/pool.d/www.conf
+
+/listen
+
+;listen = /run/php/php7.2-fpm.sock
+listen = 127.0.0.1:9000
+
+
+service php7.2-fpm restart
+
+
+
+curl -sS https://getcomposer.org/installer | php
+
+mv composer.phar /usr/local/bin/composer
+
+chmod +x /usr/local/bin/composer
+
+
+composer install -vvv
+
+composer update -vvv
+
+cp nginx.conf.sample nginx.conf
+
+vim /etc/nginx/sites-enabled/
+
+vim magento.conf
+
+	upstream fastcgi_backend {
+	    server   127.0.0.1:9000;
+	}
+
+	server {
+	    listen 80;
+	    set $MAGE_ROOT /var/www/html/magento;
+	    include /var/www/html/magento/nginx.conf;
+	}
+
+
+chmod -R 777 /var/www/html/magento/
+
+acessar 127.0.0.1
+
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
+
+apt-get install lsb-release
+
+dpkg -i mysql-apt-config_0.8.13-1_all.deb
+
+2
+
+1
+
+1
+
+2
+
+4
+
+
+apt-get update
+
+apt-get -y install mysql-server
+
+
+service mysql start
+
+netstat -anp | grep 3306
+
+mysql -uroot -proot
+
+create database magento;
+
+exit

@@ -1,0 +1,7 @@
+cd /var/www/html/
+
+git clone https://github.com/magento/magento2.git magento
+
+cd magento
+
+docker run -d -it -v /var/www/html/:/var/www/html/ -v /var/www/html/nginx/sites-enabled/:/etc/nginx/sites-enabled/ -p 80:80 --name="nginx" nginx

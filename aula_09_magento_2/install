@@ -1,0 +1,5 @@
+composer install -vvv
+
+composer update -vvv
+
+php bin/magento cron:install

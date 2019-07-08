@@ -1,0 +1,18 @@
+
+	docker network create magento
+
+	docker network connect magento mysql
+
+	docker network connect magento php
+
+	docker network connect magento nginx
+
+	docker restart mysql php nginx
+
+docker exec -it nginx bash
+
+apt-get update
+
+apt-get install -y iputils-ping
+
+ping php

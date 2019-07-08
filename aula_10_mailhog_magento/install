@@ -1,0 +1,5 @@
+docker pull mailhog/mailhog
+
+docker run -it -d --name="mailhog" -p 8025:8025 mailhog/mailhog
+
+docker network connect magento mailhog

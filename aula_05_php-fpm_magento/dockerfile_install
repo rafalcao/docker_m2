@@ -1,0 +1,17 @@
+cd /var/www/html
+
+mkdir etc/
+
+vim php-fpm.ini
+
+	memory_limit = 2G;
+
+cd /var/www/html/
+
+vim Dockerfile
+
+	Dockerfile
+	
+docker build -t 'php-local' .
+
+docker run -d -it -v /var/www/html/:/var/www/html/ --name="php" php_local

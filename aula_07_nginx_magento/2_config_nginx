@@ -1,0 +1,36 @@
+docker exec -it nginx bash
+
+cd /etc/nginx/
+
+apt-get update
+
+apt-get install -y vim
+
+vim /etc/nginx/nginx.conf
+
+	include /etc/nginx/sites-enabled/*.conf;
+
+rm -rf conf.d/default.conf
+
+exit
+
+cd nginx/sites-enabled/
+
+vim magento.conf
+
+	upstream fastcgi_backend {
+	    server   php:9000;
+	}
+
+	server {
+	    listen 80;
+	    set $MAGE_ROOT /var/www/html/magento;
+	    include /var/www/html/magento/nginx.conf;
+	}
+
+
+cd /var/www/html/magento/
+
+cp nginx.conf.sample nginx.conf
+
+chmod -R 777 /var/www/html/magento

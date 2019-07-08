@@ -1,0 +1,20 @@
+1 - Criar container
+docker run -it -d --name="php-container" php-rafael
+
+2 - Acessar container
+docker exec -it php bash
+
+Verificar vim
+
+
+3- Criar container
+docker run -it -d --name="php-vim-container" php-rafael-vim
+
+2 - Acessar container
+docker exec -it php-vim bash
+
+Verificar vim
+
+
+4 - Criar container
+docker run -it -d --name="nginx-container" nginx

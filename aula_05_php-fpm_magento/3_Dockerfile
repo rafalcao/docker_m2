@@ -1,0 +1,55 @@
+FROM php:7.2-fpm
+
+# Install dependencies
+RUN apt-get update \
+  && apt-get install -y \
+    libfreetype6-dev \ 
+    libicu-dev \ 
+    libjpeg62-turbo-dev \ 
+    libmcrypt-dev \ 
+    libpng-dev \ 
+    libxslt1-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    g++ \
+    libxml2-dev \
+    libxslt-dev \
+    vim \
+    swaks \
+    cron \
+    ssmtp
+
+# Configure the gd library
+RUN docker-php-ext-configure \
+  gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+
+# Install required PHP extensions
+RUN docker-php-ext-install \
+  dom \ 
+  gd \ 
+  intl \ 
+  mbstring \ 
+  pdo_mysql \ 
+  xsl \ 
+  zip \ 
+  soap \ 
+  bcmath
+
+ADD docker-entrypoint.sh /docker-entrypoint.sh
+RUN ["chmod", "+x", "/docker-entrypoint.sh"]
+
+ADD etc/mail.ini /usr/local/etc/php/conf.d/zz-mail.ini
+ADD etc/ssmtp.conf /etc/ssmtp/ssmtp.conf
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
+
+ENV PHP_MEMORY_LIMIT 2G
+
+ADD etc/php-fpm.ini /usr/local/etc/php/conf.d/zz-magento.ini
+
+CMD ["php-fpm", "-F"]

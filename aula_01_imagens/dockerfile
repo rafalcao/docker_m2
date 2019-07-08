@@ -1,0 +1,21 @@
+1 - Criar Dockerfile
+FROM php:7.3
+
+2 - Criar imagem pelo Dockerfile
+docker build -t 'php-rafael' .
+
+4 - Adicionar Vim ao Dockerfile
+FROM php:7.3
+
+RUN apt-get update
+
+RUN apt-get install -y vim
+
+5 - Criar imagem pelo Dockerfile
+docker build -t 'php-rafael-vim' .
+
+6 - Deletar imagem
+docker rmi php-rafael-vim
+
+5 - Criar novamente imagem pelo Dockerfile
+docker build -t 'php-rafael-vim' .

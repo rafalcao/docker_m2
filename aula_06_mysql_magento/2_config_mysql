@@ -1,0 +1,17 @@
+docker exec -it mysql bash
+
+cd /var/lib/
+
+tar czf /tmp/mysql.tar.gz mysql
+
+exit
+
+cd /var/www/html/
+
+docker cp mysql:/tmp/mysql.tar.gz .
+
+tar xzf mysql.tar.gz
+
+docker rm -f mysql
+
+docker run -d -it -p 3306:3306 -e MYSQL_ROOT_PASSWORD="root" -v /var/www/html/mysql/:/var/lib/mysql/ --name="mysql" mysql:5.6

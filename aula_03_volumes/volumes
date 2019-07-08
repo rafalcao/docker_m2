@@ -1,0 +1,18 @@
+docker run -it -d --name="php-volume" -v /var/www/html/:/arquivos/volume/ php:7.3
+
+docker exec -it php-volume bash
+
+cd /arquivos/volume/
+
+touch criado-dentro.txt
+
+exit
+
+ls
+
+vim test.php
+
+<?php echo 'Executou'.PHP_EOL; ?>
+
+docker exec php-volume php /arquivos/volume/test.php
+

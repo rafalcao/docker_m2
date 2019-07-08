@@ -1,0 +1,6 @@
+docker exec -it mysql bash
+
+mysql -uroot -proot
+
+create database magento;
+
